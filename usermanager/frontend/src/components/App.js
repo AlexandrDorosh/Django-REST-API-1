@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Components
 import UsersList from "../components/usersList/usersList";
@@ -28,11 +29,27 @@ class App extends React.Component {
       .catch((err) => console.log(err.message));
   }
 
+  onDeleteItem = (id) => {
+    // console.log("onDeleteItem ", id);
+    // console.log(this.apiURL + id);
+    fetch(this.apiURL + id, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        this.updateService();
+        console.log(response);
+      })
+      .catch((err) => console.log(err.message));
+  };
+
   render() {
     // console.log("State => ", this.state.UsersList);
     return (
       <Fragment>
-        <UsersList UsersList={this.state.UsersList} />
+        <UsersList
+          UsersList={this.state.UsersList}
+          onDeleteItem={this.onDeleteItem}
+        />
       </Fragment>
     );
   }

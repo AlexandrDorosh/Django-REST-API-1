@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 //Component
 import UserItem from "./userItem/userItem";
 
-const UsersList = ({ UsersList }) => {
+const UsersList = ({ UsersList, onDeleteItem }) => {
   const item = UsersList.map((item) => {
     // console.log("Item => ", item);
     return (
@@ -14,6 +14,7 @@ const UsersList = ({ UsersList }) => {
         email={item.email}
         message={item.message}
         created_at={item.created_at}
+        onDeleteItem={() => onDeleteItem(item.id)}
       />
     );
   });
@@ -21,7 +22,18 @@ const UsersList = ({ UsersList }) => {
     <Fragment>
       <div className="outer-container">
         <h1>User Manager Table</h1>
-        {item}
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Message</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          {item}
+        </table>
       </div>
     </Fragment>
   );
